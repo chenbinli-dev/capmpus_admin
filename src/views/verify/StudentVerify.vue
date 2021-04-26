@@ -81,6 +81,11 @@ export default {
           if (res.data.length !== 0) {
             this.total = res.data.length
             res.data.forEach(item => {
+              if(item.audit_status === 1) {
+                item.audit_status = '自动审核通过'
+              }else {
+                item.audit_status = '审核未通过'
+              }
               const date = new Date(item.createAt)
               const y = date.getFullYear()
               const mon = date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()
