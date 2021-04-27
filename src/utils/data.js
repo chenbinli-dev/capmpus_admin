@@ -1,3 +1,4 @@
+import moment from 'moment'
 //传入数组，转为echarts的省份的data
 export function countProvinceToEcharts (arr) {
     let data = [
@@ -265,6 +266,76 @@ export function countStatus (arr) {
     })
     data = data.filter((item) => {
         return item.value !== 0
+    })
+    return data
+}
+export function countBalance (arr) {
+    let data = [
+        { value: 0, name: '充值' },
+        { value: 0, name: '提现' },
+        { value: 0, name: '任务支出' },
+        { value: 0, name: '任务收入' },
+        { value: 0, name: '任务返还' }
+    ]
+    arr.forEach(item => {
+        switch (item.type) {
+            case 1:
+                data[0].value += parseFloat(item.money)
+                break
+            case 2:
+                data[1].value += parseFloat(item.money)
+                break
+            case 3:
+                data[2].value += parseFloat(item.money)
+                break
+            case 4:
+                data[3].value += parseFloat(item.money)
+                break
+            case 5:
+                data[4].value += parseFloat(item.money)
+                break
+            default:
+                break
+        }
+    })
+    data = data.filter((item) => {
+        return item.value !== 0
+    })
+    return data
+}
+//近七天
+export function countRecent (arr, type) {
+    let data = [0, 0, 0, 0, 0, 0, 0]
+    arr.forEach(item => {
+        if (item.type === type) {
+            const recordDate = moment(item.createAt).format('YYYY-MM-DD')
+            console.log(recordDate)
+            switch (recordDate) {
+                case moment().subtract(1, 'days').format('YYYY-MM-DD'):
+                    data[6] += parseFloat(item.money)
+                    break
+                case moment().subtract(2, 'days').format('YYYY-MM-DD'):
+                    data[5] += parseFloat(item.money)
+                    break
+                case moment().subtract(3, 'days').format('YYYY-MM-DD'):
+                    data[4] += parseFloat(item.money)
+                    break
+                case moment().subtract(4, 'days').format('YYYY-MM-DD'):
+                    data[3] += parseFloat(item.money)
+                    break
+                case moment().subtract(5, 'days').format('YYYY-MM-DD'):
+                    data[2] += parseFloat(item.money)
+                    break
+                case moment().subtract(6, 'days').format('YYYY-MM-DD'):
+                    data[1] += parseFloat(item.money)
+                    break
+                case moment().subtract(7, 'days').format('YYYY-MM-DD'):
+                    data[0] += parseFloat(item.money)
+                    break
+                default:
+                    break
+            }
+        }
     })
     return data
 }

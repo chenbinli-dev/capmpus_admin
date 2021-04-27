@@ -27,7 +27,7 @@
       </el-row>
       <!--信息表格-->
       <el-row>
-        <el-table :data="userInfo" border stripe style="width: 100%">
+        <el-table :data="userInfo" border stripe style="width: 100%" max-height="400">
           <el-table-column prop="username" label="用户名" width="180"></el-table-column>
           <el-table-column prop="nickname" label="昵称" width="180"></el-table-column>
           <el-table-column prop="gender" label="性别"></el-table-column>

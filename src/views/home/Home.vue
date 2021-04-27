@@ -35,7 +35,7 @@
               <span>代跑任务管理</span>
             </template>
             <el-menu-item index="/admin/home/taskInfo">任务信息查看</el-menu-item>
-            <el-menu-item index="/admin/home/taskBlock">任务锁定</el-menu-item>
+            <el-menu-item index="/admin/home/taskLock">任务锁定</el-menu-item>
           </el-submenu>
           <el-submenu index="3">
             <template slot="title">

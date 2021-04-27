@@ -13,19 +13,19 @@
       </el-col>
       <el-col :span="4">
         <el-row style="margin-bottom:18px">
-          <el-button>平台用户数:{{userInfo.length}}人</el-button>
+          <el-button style="width:100%">平台用户数:{{userInfo.length}}人</el-button>
         </el-row>
         <el-row style="margin-bottom:18px">
-          <el-button>已完成认证:{{studentInfo.length}}人</el-button>
+          <el-button style="width:100%">已完成认证:{{studentInfo.length}}人</el-button>
         </el-row>
         <el-row style="margin-bottom:18px">
-          <el-button type="primary" @click="changeProvince">省份</el-button>
+          <el-button type="primary" style="width:100%" @click="changeProvince">省份</el-button>
         </el-row>
         <el-row style="margin-bottom:18px">
-          <el-button type="success" @click="changeGender">性别</el-button>
+          <el-button type="success" style="width:100%" @click="changeGender">性别</el-button>
         </el-row>
         <el-row style="margin-bottom:18px">
-          <el-button type="info" @click="changeEducation">学历</el-button>
+          <el-button type="info" style="width:100%" @click="changeEducation">学历</el-button>
         </el-row>
       </el-col>
     </el-row>
@@ -44,7 +44,7 @@ export default {
       option: {
         title: {
           text: '',
-          subtext: '以实际认证数据为准',
+          subtext: '单位：人',
           left: 'center'
         },
         tooltip: {

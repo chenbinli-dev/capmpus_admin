@@ -13,16 +13,16 @@
       </el-col>
       <el-col :span="4">
         <el-row style="margin-bottom:18px">
-          <el-button>任务数:{{taskInfo.length}}个</el-button>
+          <el-button style="width:100%">任务数:{{taskInfo.length}}个</el-button>
         </el-row>
         <el-row style="margin-bottom:18px">
-          <el-button>已完成任务:{{finished}}个</el-button>
+          <el-button style="width:100%">已完成任务:{{finished}}个</el-button>
         </el-row>
         <el-row style="margin-bottom:18px">
-          <el-button type="primary" @click="changeTaskType">任务类型</el-button>
+          <el-button type="primary" style="width:100%" @click="changeTaskType">任务类型</el-button>
         </el-row>
         <el-row style="margin-bottom:18px">
-          <el-button type="success" @click="changeTaskStatus">任务状态</el-button>
+          <el-button type="success" style="width:100%" @click="changeTaskStatus">任务状态</el-button>
         </el-row>
       </el-col>
     </el-row>
@@ -37,11 +37,11 @@ export default {
   data() {
     return {
       taskInfo: [],
-      finished:0,
+      finished: 0,
       option: {
         title: {
           text: '',
-          subtext: '以实际认证数据为准',
+          subtext: '单位：个',
           left: 'center'
         },
         tooltip: {
@@ -78,9 +78,9 @@ export default {
         .then(res => {
           this.taskInfo = res.data
           this.taskInfo.forEach(item => {
-              if(item.status === 3) {
-                  this.finished++
-              }
+            if (item.status === 3) {
+              this.finished++
+            }
           })
           this.changeTaskType()
         })

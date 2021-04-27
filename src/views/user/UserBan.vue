@@ -181,7 +181,6 @@ export default {
             //提交禁用表单
             this.forbiddenForm.uid = this.user.uid
             this.forbiddenForm.username = this.user.username
-            console.log()
             adminRequest
               .post('/admin/forbiddenUser', this.forbiddenForm, {
                 headers: { Authorization: localStorage.getItem('TOKEN') }
