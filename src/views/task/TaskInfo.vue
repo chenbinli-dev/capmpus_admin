@@ -11,7 +11,7 @@
       <!--搜索栏-->
       <el-row type="flex" align="middle" class="form-inline">
         <el-col :span="24">
-          <el-form :inline="true" :model="formInline">
+          <el-form :inline="true">
             <el-form-item label="任务类型">
               <el-select v-model="type" placeholder="选择任务类型">
                 <el-option label="代取快递" value="代取快递"></el-option>
@@ -43,8 +43,8 @@
             <el-table-column prop="type" label="任务类型类型" width="180"></el-table-column>
             <el-table-column prop="title" label="任务标题" width="180"></el-table-column>
             <el-table-column prop="description" label="任务描述" width="180"></el-table-column>
-            <el-table-column prop="copies" label="份数" width="180"></el-table-column>
-            <el-table-column prop="estimated_amount" label="预估金" width="150"></el-table-column>
+            <el-table-column v-if="type !== '代取快递'" prop="copies" label="份数" width="180"></el-table-column>
+            <el-table-column v-if="type !== '代取快递'" prop="estimated_amount" label="预估金" width="150"></el-table-column>
             <el-table-column prop="commission" label="任务金" width="150"></el-table-column>
             <el-table-column prop="expiration_time" label="有效时间至" width="180"></el-table-column>
             <el-table-column prop="addressee" label="收件人" width="150"></el-table-column>
@@ -137,8 +137,8 @@ export default {
                 default:
                   break
               }
-              item.expiration_time = moment(item.expiration_time).format('YYYY-MM-DD')
-              item.createAt = moment(item.createAt).format('YYYY-MM-DD')
+              item.expiration_time = moment(item.expiration_time).format('YYYY-MM-DD HH:mm:ss')
+              item.createAt = moment(item.createAt).format('YYYY-MM-DD HH:mm:ss')
             })
             this.taskInfo = res.data
           } else {
@@ -187,7 +187,8 @@ export default {
               default:
                 break
             }
-            item.createAt = moment(item.createAt).format('YYYY-MM-DD')
+            item.expiration_time = moment(item.expiration_time).format('YYYY-MM-DD HH:mm:ss')
+            item.createAt = moment(item.createAt).format('YYYY-MM-DD HH:mm:ss')
           })
           this.taskInfo = res.data
         })

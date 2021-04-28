@@ -70,7 +70,7 @@
                   </el-select>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="primary" @click="onSubmit">查询</el-button>
+                  <el-button type="primary" @click="onSubmit(1,15)">查询</el-button>
                 </el-form-item>
               </el-form>
             </el-row>
@@ -245,7 +245,7 @@ export default {
               } else {
                 item.audit_status = '审核未通过'
               }
-              item.createAt = moment(item.createAt).format('YYYY-MM-DD')
+              item.createAt = moment(item.createAt).format('YYYY-MM-DD HH:mm:ss')
             })
             this.studentInfo = res.data
           } else {
@@ -269,16 +269,15 @@ export default {
       this.getStudentInfo(pageNo, 15)
     },
     //提交搜索
-    onSubmit() {
-      if (!this.formInline.status) {
-        this.$message({
-          message: '请选择筛选条件',
-          type: 'warning'
-        })
-        return
-      }
+    onSubmit(pageNo, pageSize) {
       adminRequest
-        .post('/admin/searchStudent', this.formInline, {
+        .get('/admin/searchStudent', {
+          params: {
+            university: this.formInline.university,
+            status: this.formInline.status,
+            pageNo: pageNo,
+            pageSize: pageSize
+          },
           headers: { Authorization: localStorage.getItem('TOKEN') }
         })
         .then(res => {
@@ -299,6 +298,7 @@ export default {
     }
   },
   created() {
+    this.getNewStudentTotal()
     this.getNewStudentInfo(1, 10)
   }
 }

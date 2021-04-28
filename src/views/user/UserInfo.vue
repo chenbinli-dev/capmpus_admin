@@ -21,7 +21,7 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">查询</el-button>
+            <el-button type="primary" @click="onSubmit(1,15)">查询</el-button>
           </el-form-item>
         </el-form>
       </el-row>
@@ -34,7 +34,7 @@
           <el-table-column prop="telephone" label="电话"></el-table-column>
           <el-table-column prop="brithday" label="生日"></el-table-column>
           <el-table-column prop="right" label="学生认证"></el-table-column>
-          <el-table-column prop="createAt" label="注册时间" sortable></el-table-column>
+          <el-table-column prop="createAt" label="注册时间" sortable width="180"></el-table-column>
         </el-table>
       </el-row>
       <!--分页-->
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import adminRequest from 'network/http'
 export default {
   name: 'UserInfo',
@@ -66,6 +67,20 @@ export default {
     }
   },
   methods: {
+    //获取全部用户数目
+    getUserTotal() {
+      adminRequest
+        .get('/admin/getUserTotal', {
+          headers: { Authorization: localStorage.getItem('TOKEN') }
+        })
+        .then(res => {
+          this.total = res.data.num
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    //获取对应页码的用户
     getAllUser(pageNo, pageSize) {
       adminRequest
         .get('/admin/getAllUser', {
@@ -92,26 +107,15 @@ export default {
               if (!item.brithday) {
                 item.brithday = '未设置'
               } else {
-                const date = new Date(item.brithday)
-                const y = date.getFullYear()
-                const mon = date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()
-                const d = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-
-                item.brithday = y + '-' + mon + '-' + d
+                item.brithday = moment(item.brithday).format('YYYY-MM-DD')
               }
               if (item.right === 1) {
                 item.right = '否'
               } else if (item.right === 2) {
                 item.right = '是'
               }
-              const date = new Date(item.createAt)
-              const y = date.getFullYear()
-              const mon = date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()
-              const d = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-              const h = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
-              const min = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
 
-              item.createAt = y + '-' + mon + '-' + d + ' ' + h + ':' + min
+              item.createAt = moment(item.createAt).format('YYYY-MM-DD HH:hh:ss')
             })
             this.userInfo = res.data
           } else {
@@ -131,9 +135,64 @@ export default {
       this.getAllUser(pageNo, 15)
     },
     //提交搜索
-    onSubmit() {}
+    onSubmit(pageNo, pageSize) {
+      if (!this.formInline.region) {
+        this.$message({
+          message: '请选择查询条件',
+          type: 'warning'
+        })
+        return
+      }
+      this.userInfo = []
+      adminRequest
+        .get('/admin/searchUser', {
+          params: {
+            keyword: this.formInline.keyword,
+            region: this.formInline.region,
+            pageNo: pageNo,
+            pageSize: pageSize
+          },
+          headers: { Authorization: localStorage.getItem('TOKEN') }
+        })
+        .then(res => {
+          console.log(res)
+          this.total = res.data.length
+          res.data.forEach(item => {
+            if (!item.nickname) {
+              item.nickname = '未设置'
+            }
+            if (!item.gender) {
+              item.gender = '未设置'
+            } else if (item.gender === 100) {
+              item.gender = '男'
+            } else if (item.gender === 200) {
+              item.gender = '女'
+            }
+            if (!item.telephone) {
+              item.telephone = '未设置'
+            }
+            if (!item.brithday) {
+              item.brithday = '未设置'
+            } else {
+              item.brithday = moment(item.brithday).format('YYYY-MM-DD')
+            }
+            if (item.right === 1) {
+              item.right = '否'
+            } else if (item.right === 2) {
+              item.right = '是'
+            }
+
+            item.createAt = moment(item.createAt).format('YYYY-MM-DD HH:hh:ss')
+          })
+          this.userInfo = res.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   },
   created() {
+    this.getUserTotal()
     this.getAllUser(1, 15)
   }
 }

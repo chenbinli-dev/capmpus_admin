@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import adminRequest from 'network/http'
 export default {
   name: 'Complain',
@@ -74,14 +75,7 @@ export default {
           if (res.data.length !== 0) {
             this.total = res.data.length
             res.data.forEach(item => {
-              const date = new Date(item.createAt)
-              const y = date.getFullYear()
-              const mon = date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()
-              const d = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-              const h = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
-              const min = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-
-              item.createAt = y + '-' + mon + '-' + d + ' ' + h + ':' + min
+              item.createAt = moment(item.createAt).format('YYYY-MM-DD HH:hh:ss')
             })
             this.complainInfo = res.data
           } else {

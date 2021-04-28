@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import adminRequest from 'network/http'
 export default {
   name: 'AdminLogin',
@@ -43,14 +44,7 @@ export default {
   },
   computed: {
     getTime() {
-      const date = new Date()
-      const y = date.getFullYear()
-      const mon = date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()
-      const d = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-      const h = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
-      const min = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-
-      return y + '-' + mon + '-' + d + ' ' + h + ':' + min
+      return moment().format('YYYY-MM-DD HH:hh')
     }
   },
   methods: {

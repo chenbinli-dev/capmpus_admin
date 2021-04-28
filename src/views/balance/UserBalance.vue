@@ -31,6 +31,7 @@
       <el-row v-if="balanceInfo.length !== 0">
         <!--信息表格-->
         <el-table :data="balanceInfo" border stripe style="width: 100%" max-height="400">
+          <!-- <el-table-column prop="$index" label="序号" width="150"></el-table-column> -->
           <el-table-column prop="id" label="流水号" width="150"></el-table-column>
           <el-table-column prop="type" label="类型" width="150"></el-table-column>
           <el-table-column v-if="type === '1'" prop="recharge_type" label="充值方式" width="150"></el-table-column>
@@ -117,7 +118,7 @@ export default {
                 default:
                   break
               }
-              item.createAt = moment(item.createAt).format('YYYY-MM-DD')
+              item.createAt = moment(item.createAt).format('YYYY-MM-DD HH:mm:ss')
             })
             this.balanceInfo = res.data
           } else {
@@ -170,7 +171,7 @@ export default {
               default:
                 break
             }
-            item.createAt = moment(item.createAt).format('YYYY-MM-DD')
+            item.createAt = moment(item.createAt).format('YYYY-MM-DD HH:mm:ss')
           })
           this.balanceInfo = res.data
         })

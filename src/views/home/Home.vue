@@ -114,6 +114,7 @@ export default {
           })
       } else {
         //修改密码
+        this.$router.push('/admin/home/edit')
       }
     }
   }

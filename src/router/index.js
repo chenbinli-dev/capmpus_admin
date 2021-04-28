@@ -6,6 +6,7 @@ import Router from 'vue-router'
 const AdminLogin = () => import('views/login/Login')
 const AdminHome = () => import('views/home/Home')
 const System = () => import('views/home/System')
+const Edit = () => import('views/home/Edit')
 //用户管理
 const UserInfo = () => import('views/user/UserInfo')
 const UserBan = () => import('views/user/UserBan')
@@ -42,6 +43,10 @@ const routes = [
             {
                 path: '',
                 component: System
+            },
+            {
+                path: 'edit',
+                component: Edit
             },
             {
                 //用户信息查看
@@ -107,4 +112,15 @@ Router.prototype.push = function push (location) {
     return originalPush.call(this, location).catch(err => err)
 }
 
+router.beforeEach((to, from, next) => {
+    if (from.path === '/admin/login' && to.path === '/admin/home') {
+        Vue.prototype.$notify({
+            title: '登陆成功',
+            message: '欢迎回来',
+            type: 'success',
+            position: 'bottom-right'
+        })
+    }
+    next()
+})
 export default router

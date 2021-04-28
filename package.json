@@ -13,6 +13,7 @@
     "element-ui": "^2.15.1",
     "moment": "^2.29.1",
     "vue": "^2.6.11",
+    "vue-amap": "^0.5.10",
     "vue-router": "^3.5.1"
   },
   "devDependencies": {
