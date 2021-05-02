@@ -10,7 +10,7 @@ const Edit = () => import('views/home/Edit')
 //用户管理
 const UserInfo = () => import('views/user/UserInfo')
 const UserBan = () => import('views/user/UserBan')
-const Complain = () => import('views/user/Complain')
+const Complaint = () => import('views/user/Complaint')
 //任务管理
 const TaskInfo = () => import('views/task/TaskInfo')
 const TaskLock = () => import('views/task/TaskLock')
@@ -61,7 +61,7 @@ const routes = [
             {
                 //用户投诉处理
                 path: 'complain',
-                component: Complain
+                component: Complaint
             },
             {
                 //任务信息查看
