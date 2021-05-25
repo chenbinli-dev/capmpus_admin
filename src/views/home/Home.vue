@@ -121,7 +121,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .adminHome {
   height: 100%;
 }

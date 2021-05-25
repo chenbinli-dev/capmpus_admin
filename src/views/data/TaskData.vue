@@ -109,7 +109,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .taskData {
   height: 100%;
   padding: 18px;

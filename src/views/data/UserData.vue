@@ -128,7 +128,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .userData {
   height: 100%;
   padding: 18px;

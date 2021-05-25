@@ -46,7 +46,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .system {
   height: 100%;
   padding: 0 18px;
