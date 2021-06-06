@@ -13,7 +13,6 @@ const UserBan = () => import('views/user/UserBan')
 const Complaint = () => import('views/user/Complaint')
 //任务管理
 const TaskInfo = () => import('views/task/TaskInfo')
-const TaskLock = () => import('views/task/TaskLock')
 //用户余额
 const UserBalance = () => import('views/balance/UserBalance')
 //认证中心
@@ -67,11 +66,6 @@ const routes = [
                 //任务信息查看
                 path: 'taskinfo',
                 component: TaskInfo
-            },
-            {
-                //任务锁定和解除
-                path: 'taskLock',
-                component: TaskLock
             },
             {
                 //用户余额流水查看

@@ -1,7 +1,7 @@
 <template>
   <div id="adminHome" class="adminHome">
     <el-row type="flex" align="middle" justify="space-between" class="header">
-      <el-col :span="6" class="icon-title">校园代跑平台后台管理</el-col>
+      <el-col :span="6" class="icon-title">校园代跑平台后台管理123</el-col>
       <el-col :span="3" :push="8">
         <el-dropdown @command="handleCommand">
           <span class="el-dropdown-link">
@@ -35,7 +35,6 @@
               <span>代跑任务管理</span>
             </template>
             <el-menu-item index="/admin/home/taskInfo">任务信息查看</el-menu-item>
-            <el-menu-item index="/admin/home/taskLock">任务锁定</el-menu-item>
           </el-submenu>
           <el-submenu index="3">
             <template slot="title">
